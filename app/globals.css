@@ -1,0 +1,192 @@
+@import "tailwindcss";
+
+/* ============================================================
+   SRINISHTHA — "निष्ठा / Precision as Devotion"
+   A studio presented as a discipline. The visual language fuses
+   the yantra (a precise geometric instrument of focus) with the
+   engineering drawing: chalk line-work on deep ink, one vermillion
+   point, plotted coordinates, leader-line annotations, title blocks.
+   ============================================================ */
+
+@theme {
+  /* Ground */
+  --color-ink: #0b0a09;        /* primary ground, warm near-black */
+  --color-ink-2: #121009;      /* raised panel                    */
+  --color-ink-3: #1a1710;      /* hover / deepest card            */
+
+  /* Light "light-table" ground (tonal flip) */
+  --color-paper: #e7e0cf;      /* chalky drafting paper           */
+  --color-paper-2: #ddd5c1;
+
+  /* Marks (chalk) */
+  --color-chalk: #efe7d6;      /* primary ink-on-dark             */
+  --color-chalk-2: #c7bda6;    /* secondary                       */
+  --color-muted: #938a76;      /* tertiary text on ink            */
+  --color-faint: #6c6454;      /* faint annotations on ink        */
+
+  /* Ink marks on paper */
+  --color-graphite: #17140d;
+  --color-graphite-2: #4a4536;
+
+  /* The single accent */
+  --color-vermillion: #ee4323;
+  --color-vermillion-2: #cf3415;
+
+  /* Lines */
+  --color-line: rgba(239, 231, 214, 0.12);
+  --color-line-2: rgba(239, 231, 214, 0.22);
+  --color-line-3: rgba(239, 231, 214, 0.4);
+  --color-line-ink: rgba(23, 20, 13, 0.16);
+  --color-line-ink-2: rgba(23, 20, 13, 0.3);
+
+  /* Type */
+  --font-display: var(--font-display), ui-sans-serif, system-ui, sans-serif;
+  --font-body: var(--font-body), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-mono), ui-monospace, monospace;
+  --font-deva: var(--font-deva), serif;
+
+  --ease-draft: cubic-bezier(0.33, 1, 0.68, 1);
+  --container: 84rem;
+}
+
+* {
+  border-color: var(--color-line);
+}
+
+html {
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  scroll-behavior: smooth;
+  background: var(--color-ink);
+}
+
+body {
+  background: var(--color-ink);
+  color: var(--color-chalk);
+  font-family: var(--font-body);
+  font-feature-settings: "ss01";
+  overflow-x: clip;
+}
+
+::selection {
+  background: var(--color-vermillion);
+  color: #fff;
+}
+
+:focus-visible {
+  outline: 1.5px solid var(--color-vermillion);
+  outline-offset: 3px;
+}
+
+/* ---------- Type helpers ---------- */
+.font-display { font-family: var(--font-display); }
+.font-mono { font-family: var(--font-mono); }
+.font-deva { font-family: var(--font-deva); }
+
+.mono-label {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  font-weight: 400;
+}
+.mono-xs {
+  font-family: var(--font-mono);
+  font-size: 0.6rem;
+  letter-spacing: 0.14em;
+}
+
+/* Fluid display scale — tight, architectural */
+.d-mega { font-size: clamp(3rem, 11vw, 10rem); line-height: 0.86; letter-spacing: -0.035em; }
+.d-1 { font-size: clamp(2.6rem, 7.2vw, 6.5rem); line-height: 0.9; letter-spacing: -0.03em; }
+.d-2 { font-size: clamp(2rem, 4.6vw, 4rem); line-height: 0.96; letter-spacing: -0.025em; }
+.d-3 { font-size: clamp(1.5rem, 3vw, 2.4rem); line-height: 1.02; letter-spacing: -0.02em; }
+
+.text-balance { text-wrap: balance; }
+.text-pretty { text-wrap: pretty; }
+
+/* ---------- Layout ---------- */
+.container-x {
+  width: 100%;
+  max-width: var(--container);
+  margin-inline: auto;
+  padding-inline: 1.25rem;
+}
+@media (min-width: 768px) {
+  .container-x { padding-inline: 2rem; }
+}
+
+/* ---------- The drafting sheet ---------- */
+/* Fine coordinate grid used behind key sections */
+.sheet {
+  background-image:
+    linear-gradient(var(--color-line) 1px, transparent 1px),
+    linear-gradient(90deg, var(--color-line) 1px, transparent 1px);
+  background-size: 72px 72px;
+  background-position: center top;
+}
+.sheet-ink {
+  background-image:
+    linear-gradient(var(--color-line-ink) 1px, transparent 1px),
+    linear-gradient(90deg, var(--color-line-ink) 1px, transparent 1px);
+  background-size: 72px 72px;
+}
+
+/* Registration tick — small crosshair used at grid corners */
+.tick::before,
+.tick::after {
+  content: "";
+  position: absolute;
+  background: var(--color-line-3);
+}
+.tick::before { width: 11px; height: 1px; top: 50%; left: 50%; transform: translate(-50%, -50%); }
+.tick::after { width: 1px; height: 11px; top: 50%; left: 50%; transform: translate(-50%, -50%); }
+
+/* Hairline rules */
+.rule { height: 1px; width: 100%; background: var(--color-line-2); }
+
+/* ---------- Links ---------- */
+.link-mark {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+.link-mark::after {
+  content: "";
+  position: absolute;
+  left: 0; bottom: -3px;
+  height: 1px; width: 100%;
+  background: var(--color-vermillion);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.45s var(--ease-draft);
+}
+.link-mark:hover::after { transform: scaleX(1); }
+
+/* ---------- Signature: SVG draw-on ---------- */
+/* Elements with .draw are stroked then revealed via dashoffset in JS,
+   but we also provide a pure-CSS fallback keyframe. */
+@keyframes draw {
+  to { stroke-dashoffset: 0; }
+}
+
+/* Grain: barely-there tooth on the ink, like paper under chalk */
+.grain {
+  position: fixed;
+  inset: 0;
+  z-index: 70;
+  pointer-events: none;
+  opacity: 0.05;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    transition-duration: 0.001ms !important;
+  }
+  .draw { stroke-dashoffset: 0 !important; }
+}
