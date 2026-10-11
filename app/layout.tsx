@@ -4,6 +4,7 @@ import "./globals.css";
 import { Nav } from "@/components/layout/Nav";
 import { Footer } from "@/components/layout/Footer";
 import { company } from "@/lib/content";
+import { SITE_URL } from "@/lib/site";
 
 const display = Bricolage_Grotesque({
   subsets: ["latin"],
@@ -34,7 +35,7 @@ const deva = Noto_Serif_Devanagari({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://srinishtha.com"),
+  metadataBase: new URL(SITE_URL),
   title: {
     default: "Srinishtha Technologies — Precision as devotion",
     template: "%s · Srinishtha",
@@ -52,7 +53,7 @@ export const metadata: Metadata = {
     title: "Srinishtha Technologies — Precision as devotion",
     description:
       "A Hyderabad software studio. Systems engineered with the precision of a yantra — built on 100+ years of combined experience.",
-    url: "https://srinishtha.com",
+    url: SITE_URL,
     siteName: "Srinishtha Technologies",
     locale: "en_IN",
     type: "website",
@@ -86,7 +87,7 @@ export default function RootLayout({
               "@context": "https://schema.org",
               "@type": "Organization",
               name: company.legal,
-              url: "https://srinishtha.com",
+              url: SITE_URL,
               email: company.email,
               telephone: company.phone,
               foundingDate: company.founded,
